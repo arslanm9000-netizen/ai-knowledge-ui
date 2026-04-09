@@ -58,3 +58,22 @@ st.markdown("""
 }
 </style>
 """, unsafe_allow_html=True)
+
+
+
+
+
+
+
+
+
+
+
+
+
+if "password" in user_input.lower():
+    answer = "Use the password reset SOP."
+else:
+    answer = "No matching result found."
+
+st.write(answer)
