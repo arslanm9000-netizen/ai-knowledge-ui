@@ -4,7 +4,7 @@ st.set_page_config(page_title="AI Knowledge Assistant", layout="wide")
 
 st.title("🤖 AI Knowledge Assistant")
 
-st.info("A small AI-based internal knowledge assistant that lets Bee's Knees employees ask questions and retrieve grounded answers from SOPs, onboarding guides, policy documents, and resolved-ticket examples.")
+st.info("“AI-powered assistant to quickly find answers from company knowledge like SOPs, tickets, and policies.")
 
 st.write("---")
 
@@ -45,3 +45,16 @@ if search_clicked:
 
     else:
         st.warning("Please enter a question.")
+
+
+
+
+st.markdown("""
+<style>
+.stButton>button {
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 8px;
+}
+</style>
+""", unsafe_allow_html=True)
