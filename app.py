@@ -22,7 +22,7 @@ search_clicked = st.button("Search")
 
 st.write("---")
 
-# Knowledge base (UPDATED with outdated flag)
+# Knowledge base (FULLY MATCHES SLIDE)
 knowledge_base = {
     "password": {
         "answer": "To reset your password, go to the company portal → click 'Forgot Password' → follow the email instructions.",
@@ -30,29 +30,23 @@ knowledge_base = {
         "confidence": "92%",
         "outdated": False
     },
-    "vpn": {
-        "answer": "Restart VPN client, check internet, and re-enter credentials.",
-        "sources": ["SOP: VPN Troubleshooting"],
-        "confidence": "88%",
-        "outdated": False
-    },
     "onboarding": {
-        "answer": "Set up your account, configure email and VPN, and review company policies.",
+        "answer": "During onboarding, set up your account, configure email and VPN, and review company policies.",
         "sources": ["Onboarding Guide"],
         "confidence": "91%",
         "outdated": False
     },
-    "login": {
-        "answer": "Reset your password or contact IT support.",
-        "sources": ["Ticket #5678"],
-        "confidence": "89%",
+    "backup": {
+        "answer": "If a backup failure occurs, check logs, retry the backup, and escalate to the IT infrastructure team if unresolved.",
+        "sources": ["SOP: Backup Failure Handling", "Ticket #7789"],
+        "confidence": "87%",
         "outdated": False
     },
     "policy": {
-        "answer": "Company policies define acceptable system usage and security rules.",
+        "answer": "Leave policies define employee entitlements such as vacation days, sick leave, and approval procedures.",
         "sources": ["Policy Document v1.2"],
         "confidence": "95%",
-        "outdated": True   # 🔥 THIS IS THE RED FLAG CASE
+        "outdated": True   # 🔥 RED FLAG (matches slide)
     }
 }
 
@@ -65,14 +59,16 @@ if search_clicked:
 
         if "password" in user_text:
             result = knowledge_base["password"]
-        elif "vpn" in user_text:
-            result = knowledge_base["vpn"]
+
         elif "onboarding" in user_text or "new employee" in user_text or "get started" in user_text:
             result = knowledge_base["onboarding"]
-        elif "login" in user_text or "log in" in user_text:
-            result = knowledge_base["login"]
-        elif "policy" in user_text or "policies" in user_text or "rules" in user_text:
+
+        elif "backup" in user_text or "backup failure" in user_text or "escalate" in user_text:
+            result = knowledge_base["backup"]
+
+        elif "policy" in user_text or "policies" in user_text or "leave" in user_text:
             result = knowledge_base["policy"]
+
         else:
             result = {
                 "answer": "No matching result found.",
@@ -105,7 +101,7 @@ if search_clicked:
         else:
             st.write("No sources available.")
 
-        # 🔥 OUTDATED FLAG DISPLAY
+        # 🔥 OUTDATED FLAG (matches slide exactly)
         if outdated:
             st.error("⚠️ Warning: This document may be outdated.")
 
