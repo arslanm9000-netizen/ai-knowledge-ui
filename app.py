@@ -79,7 +79,7 @@ if search_clicked:
             result = knowledge_base["email"]
         elif "device" in user_text:
             result = knowledge_base["device"]
-        elif "policy" in user_text or "rules" in user_text:
+        elif "policy" in user_text or "policies" in user_text or "rule" in user_text:
             result = knowledge_base["policy"]
         elif "onboarding" in user_text or "new employee" in user_text or "get started" in user_text:
             result = knowledge_base["onboarding"]
