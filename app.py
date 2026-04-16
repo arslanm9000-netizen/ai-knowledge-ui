@@ -61,7 +61,33 @@ st.markdown("""
 
 
 
-
+knowledge_base = {
+    "password": {
+        "answer": "Use the password reset SOP: go to portal → click 'Forgot Password' → follow email instructions.",
+        "sources": ["SOP: Password Reset Guide", "Ticket #4521"],
+        "confidence": "92%"
+    },
+    "vpn": {
+        "answer": "Check internet, restart VPN client, and re-enter credentials. Follow VPN troubleshooting SOP.",
+        "sources": ["SOP: VPN Troubleshooting", "Ticket #3321"],
+        "confidence": "88%"
+    },
+    "email": {
+        "answer": "Set up email using Outlook with your company credentials and sync settings.",
+        "sources": ["SOP: Email Setup Guide"],
+        "confidence": "90%"
+    },
+    "device": {
+        "answer": "Set up your device by installing required software and joining the company domain.",
+        "sources": ["SOP: Device Setup"],
+        "confidence": "85%"
+    },
+    "policy": {
+        "answer": "Follow the Acceptable Use Policy: no unauthorized software and maintain secure access.",
+        "sources": ["Policy Document"],
+        "confidence": "95%"
+    }
+}
 
 
 
@@ -77,3 +103,36 @@ else:
     answer = "No matching result found."
 
 st.write(answer)
+
+
+
+
+
+
+
+
+answer = "No matching result found."
+sources = []
+confidence = "50%"
+
+for key in knowledge_base:
+    if key in user_input.lower():
+        answer = knowledge_base[key]["answer"]
+        sources = knowledge_base[key]["sources"]
+        confidence = knowledge_base[key]["confidence"]
+        break
+
+
+
+
+
+
+
+
+st.write(answer)
+
+st.subheader("📄 Sources Used")
+for s in sources:
+    st.write(f"- {s}")
+
+st.metric("Confidence", confidence)
