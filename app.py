@@ -28,57 +28,73 @@ st.write("---")
 # Knowledge base
 knowledge_base = {
     "password": {
-        "answer": "Use the password reset SOP: go to portal → click 'Forgot Password' → follow email instructions.",
+        "answer": "To reset your password, go to the company portal → click 'Forgot Password' → follow the email instructions.",
         "sources": ["SOP: Password Reset Guide", "Ticket #4521"],
         "confidence": "92%"
     },
     "vpn": {
-        "answer": "Check internet, restart VPN client, and re-enter credentials. Follow VPN troubleshooting SOP.",
+        "answer": "If VPN is not working, check your internet connection, restart the VPN client, and re-enter your credentials.",
         "sources": ["SOP: VPN Troubleshooting", "Ticket #3321"],
         "confidence": "88%"
     },
     "email": {
-        "answer": "Set up email using Outlook with your company credentials and sync settings.",
+        "answer": "Set up your company email using Outlook with your credentials and sync settings.",
         "sources": ["SOP: Email Setup Guide"],
         "confidence": "90%"
     },
     "device": {
-        "answer": "Set up your device by installing required software and joining the company domain.",
+        "answer": "To set up your device, install required software and join the company domain.",
         "sources": ["SOP: Device Setup"],
         "confidence": "85%"
     },
     "policy": {
-        "answer": "Follow the Acceptable Use Policy: no unauthorized software and maintain secure access.",
+        "answer": "Follow the acceptable use policy: no unauthorized software and maintain secure access.",
         "sources": ["Policy Document"],
         "confidence": "95%"
     },
     "onboarding": {
-        "answer": "During onboarding, set up your account, configure email, VPN, and review company policies.",
+        "answer": "During onboarding, set up your account, configure email and VPN, and review company policies.",
         "sources": ["Onboarding Guide"],
         "confidence": "91%"
     },
     "login": {
-        "answer": "If you cannot log in, reset your password or contact IT support.",
+        "answer": "If you cannot log in, try resetting your password or contact IT support.",
         "sources": ["Ticket #5678"],
         "confidence": "89%"
     }
 }
 
-# Search logic (ONLY runs when button clicked)
+# Search logic
 if search_clicked:
     if user_input:
         st.header("📊 Results")
 
-        answer = "No matching result found."
-        sources = []
-        confidence = "50%"
+        user_text = user_input.lower()
 
-        for key in knowledge_base:
-            if key in user_input.lower():
-                answer = knowledge_base[key]["answer"]
-                sources = knowledge_base[key]["sources"]
-                confidence = knowledge_base[key]["confidence"]
-                break
+        if "password" in user_text:
+            result = knowledge_base["password"]
+        elif "vpn" in user_text:
+            result = knowledge_base["vpn"]
+        elif "email" in user_text:
+            result = knowledge_base["email"]
+        elif "device" in user_text:
+            result = knowledge_base["device"]
+        elif "policy" in user_text or "rules" in user_text:
+            result = knowledge_base["policy"]
+        elif "onboarding" in user_text or "new employee" in user_text or "get started" in user_text:
+            result = knowledge_base["onboarding"]
+        elif "login" in user_text or "log in" in user_text or "can't log" in user_text:
+            result = knowledge_base["login"]
+        else:
+            result = {
+                "answer": "No matching result found.",
+                "sources": [],
+                "confidence": "50%"
+            }
+
+        answer = result["answer"]
+        sources = result["sources"]
+        confidence = result["confidence"]
 
         col1, col2 = st.columns([3, 1])
 
@@ -114,9 +130,3 @@ st.markdown("""
 }
 </style>
 """, unsafe_allow_html=True)
-
-
-
-
-
-#update
